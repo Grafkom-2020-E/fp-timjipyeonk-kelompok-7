@@ -28,6 +28,13 @@ initScene = () => {
     camera.lookAt(scene.position);
     scene.add(camera);
 
+    // ORBIT CONTROLS
+    controls = new THREE.OrbitControls(camera, renderer.domElement);
+    controls.minPolarAngle = Math.PI * 0.3;
+    controls.maxPolarAngle = Math.PI * 0.4;
+    controls.target.set(0, 40, 0);
+    controls.enableZoom = false;
+
     // LIGHTS
     var light = new THREE.HemisphereLight(0xffffbb, 0x080820, 1);
     light.position.set(50, 100, 10);
