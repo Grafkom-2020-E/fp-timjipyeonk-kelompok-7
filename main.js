@@ -24,7 +24,7 @@ initScene = () => {
         1,
         1000
     );
-    camera.position.set(80, 80, 280);
+    camera.position.set(250, 0, 280);
     camera.lookAt(scene.position);
     scene.add(camera);
 
@@ -47,7 +47,7 @@ initScene = () => {
     );
 
     ground.plane = new Physijs.BoxMesh(
-        new THREE.BoxGeometry(100, 1, 100),
+        new THREE.BoxGeometry(200, 1, 200),
         ground_material,
     );
     ground.plane.receiveShadow = true;
@@ -67,65 +67,66 @@ initScene = () => {
 
     border_material.map.wrapS = border_material.map.wrapT =
         THREE.RepeatWrapping;
+    border_material.map.repeat.set(0.5, 0.5);
 
     let border_height = 10;
 
     // GROUND - BORDERS - EAST
     ground.east_border = new Physijs.BoxMesh(
-        new THREE.BoxGeometry(2, border_height, 100),
+        new THREE.BoxGeometry(2, border_height, 200),
         ground_material,
         0, 
         { restitution: 0.9, friction: 0.1 }
     );
-    ground.east_border.position.set(49, border_height / 2 + 0.5, 0);
+    ground.east_border.position.set(99, border_height / 2 + 0.5, 0);
     scene.add(ground.east_border);
 
     // GROUND - BORDERS - WEST
     ground.west_border = new Physijs.BoxMesh(
-        new THREE.BoxGeometry(2, border_height, 100),
+        new THREE.BoxGeometry(2, border_height, 200),
         ground_material,
         0, // mass
         { restitution: 0.9, friction: 0.1 }
     );
-    ground.west_border.position.set(-49, border_height / 2 + 0.5, 0);
+    ground.west_border.position.set(-99, border_height / 2 + 0.5, 0);
     scene.add(ground.west_border);
 
     // GROUND - BORDERS - NORTH
     ground.north_border_1 = new Physijs.BoxMesh(
-        new THREE.BoxGeometry(35, border_height, 2),
+        new THREE.BoxGeometry(76, border_height, 2),
         ground_material,
         0, 
         { restitution: 0.9, friction: 0.1 }
     );
-    ground.north_border_1.position.set(-30.5, border_height / 2 + 0.5, -49);
+    ground.north_border_1.position.set(-60, border_height / 2 + 0.5, -99);
     scene.add(ground.north_border_1);
 
     ground.north_border_2 = new Physijs.BoxMesh(
-        new THREE.BoxGeometry(35, border_height, 2),
+        new THREE.BoxGeometry(76, border_height, 2),
         ground_material,
         0, 
         { restitution: 0.9, friction: 0.1 }
     );
-    ground.north_border_2.position.set(30.5, border_height / 2 + 0.5, -49);
+    ground.north_border_2.position.set(60, border_height / 2 + 0.5, -99);
     scene.add(ground.north_border_2);
 
     // GROUND - BORDERS - SOUTH
     ground.south_border_1 = new Physijs.BoxMesh(
-        new THREE.BoxGeometry(35, border_height, 2),
+        new THREE.BoxGeometry(76, border_height, 2),
         ground_material,
         0, 
         { restitution: 0.9, friction: 0.1 }
     );
-    ground.south_border_1.position.set(-30.5, border_height / 2 + 0.5, 49);
+    ground.south_border_1.position.set(-60, border_height / 2 + 0.5, 99);
     scene.add(ground.south_border_1);
 
     ground.south_border_2 = new Physijs.BoxMesh(
-        new THREE.BoxGeometry(35, border_height, 2),
+        new THREE.BoxGeometry(76, border_height, 2),
         ground_material,
         0, 
         { restitution: 0.9, friction: 0.1 }
     );
-    ground.south_border_2.position.set(30.5, border_height / 2 + 0.5, 49);
+    ground.south_border_2.position.set(60, border_height / 2 + 0.5, 99);
     scene.add(ground.south_border_2);
 
     requestAnimationFrame(render);
