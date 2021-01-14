@@ -1,17 +1,19 @@
+Physijs.scripts.worker = '/libs/physijs_worker.js';
+Physijs.scripts.ammo = '/libs/ammo.js';
+
 let initScene,
     render,
     ground_material,
     border_material,
+    ball_material,
     renderer,
     scene,
     ground = {},
     light,
     camera,
-    ball_material,
     ball,
     createBall,
     checkBallPosition;
-
 
 initScene = () => {
     renderer = new THREE.WebGLRenderer({ antialias: true });
@@ -65,6 +67,7 @@ initScene = () => {
     ground.plane = new Physijs.BoxMesh(
         new THREE.BoxGeometry(200, 1, 200),
         ground_material,
+        0 
     );
     ground.plane.receiveShadow = true;
     scene.add(ground.plane);
@@ -72,6 +75,7 @@ initScene = () => {
     // GROUND - BORDERS
     var border_texture = loader.load('/images/wood.jpg', function (texture) {
         texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
+        texture.offset.set(0, 0);
     });
     border_material = Physijs.createMaterial(
         new THREE.MeshLambertMaterial({
@@ -101,7 +105,7 @@ initScene = () => {
     ground.west_border = new Physijs.BoxMesh(
         new THREE.BoxGeometry(2, border_height, 200),
         ground_material,
-        0, // mass
+        0, 
         { restitution: 0.9, friction: 0.1 }
     );
     ground.west_border.position.set(-99, border_height / 2 + 0.5, 0);
@@ -145,35 +149,34 @@ initScene = () => {
     ground.south_border_2.position.set(60, border_height / 2 + 0.5, 99);
     scene.add(ground.south_border_2);
 
-        // BALL
-        createBall = () => {
-            ball_material = Physijs.createMaterial(
-                new THREE.MeshLambertMaterial({ color: 0xffffff }),
-                0.1,
-                1
-            );
-            ball = new Physijs.SphereMesh(
-                new THREE.SphereGeometry(5, 20, 20),
-                ball_material,
-                20, // mass
-                { restitution: 0.9, friction: 0.9 }
-            );
-            ball.position.x = -10;
-            ball.position.y = 25;
-            scene.add(ball);
-        };
-        createBall();
+    // BALL
+    createBall = () => {
+        ball_material = Physijs.createMaterial(
+            new THREE.MeshLambertMaterial({ color: 0xffffff }),
+            0.1,
+            1
+        );
+        ball = new Physijs.SphereMesh(
+            new THREE.SphereGeometry(5, 20, 20),
+            ball_material,
+            20, // mass
+            { restitution: 0.9, friction: 0.9 }
+        );
+        ball.position.x = -10;
+        ball.position.y = 25;
+        scene.add(ball);
+    };
+    createBall();
 
-        checkBallPosition = () => {
-            if (ball.position.y < 0) {
-                createBall();
-            }
-        };
+    checkBallPosition = () => {
+        if (ball.position.y < 0) {
+            createBall();
+        }
+    };
 
     requestAnimationFrame(render);
     scene.simulate();
 };
-
 
 render = function () {
     requestAnimationFrame(render);
