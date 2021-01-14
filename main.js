@@ -32,6 +32,7 @@ initScene = () => {
     scene.setGravity(new THREE.Vector3(0, -30, 0));
     scene.addEventListener('update', function () {
         scene.simulate(undefined, 2);
+        checkRobotPosition();
         checkBallPosition();
     });
 
@@ -320,7 +321,124 @@ initScene = () => {
     };
     createRobot();
 
-    
+    // MOVEMENT
+    document.addEventListener('keydown', function (ev) {
+        console.log(ev.keyCode);
+        switch (ev.keyCode) {
+            case 65:
+                // ------------------------------------------------------------------
+                // Left
+                robot.wheel_fl_constraint.configureAngularMotor(
+                    1,
+                    -Math.PI / 4,
+                    Math.PI / 4,
+                    1,
+                    200
+                );
+                robot.wheel_fr_constraint.configureAngularMotor(
+                    1,
+                    -Math.PI / 4,
+                    Math.PI / 4,
+                    1,
+                    200
+                );
+                robot.wheel_fl_constraint.enableAngularMotor(1);
+                robot.wheel_fr_constraint.enableAngularMotor(1);
+                break;
+
+            case 68:
+                // ------------------------------------------------------------------
+                // Right
+                robot.wheel_fl_constraint.configureAngularMotor(
+                    1,
+                    -Math.PI / 4,
+                    Math.PI / 4,
+                    -1,
+                    200
+                );
+                robot.wheel_fr_constraint.configureAngularMotor(
+                    1,
+                    -Math.PI / 4,
+                    Math.PI / 4,
+                    -1,
+                    200
+                );
+                robot.wheel_fl_constraint.enableAngularMotor(1);
+                robot.wheel_fr_constraint.enableAngularMotor(1);
+                break;
+
+            case 87:
+                // ------------------------------------------------------------------
+                // Up
+                robot.wheel_bl_constraint.configureAngularMotor(
+                    2,
+                    1,
+                    0,
+                    15,
+                    3000
+                );
+                robot.wheel_br_constraint.configureAngularMotor(
+                    2,
+                    1,
+                    0,
+                    15,
+                    3000
+                );
+                robot.wheel_bl_constraint.enableAngularMotor(2);
+                robot.wheel_br_constraint.enableAngularMotor(2);
+                break;
+
+            case 83:
+                // ------------------------------------------------------------------
+                // Down
+                robot.wheel_bl_constraint.configureAngularMotor(
+                    2,
+                    1,
+                    0,
+                    -10,
+                    12000
+                );
+                robot.wheel_br_constraint.configureAngularMotor(
+                    2,
+                    1,
+                    0,
+                    -10,
+                    12000
+                );
+                robot.wheel_bl_constraint.enableAngularMotor(2);
+                robot.wheel_br_constraint.enableAngularMotor(2);
+                break;
+        }
+    });
+
+    document.addEventListener('keyup', function (ev) {
+        switch (ev.keyCode) {
+            case 65:
+                // Left
+                robot.wheel_fl_constraint.disableAngularMotor(1);
+                robot.wheel_fr_constraint.disableAngularMotor(1);
+                break;
+
+            case 68:
+                // Right
+                robot.wheel_fl_constraint.disableAngularMotor(1);
+                robot.wheel_fr_constraint.disableAngularMotor(1);
+                break;
+
+            case 87:
+                // Up
+                robot.wheel_bl_constraint.disableAngularMotor(2);
+                robot.wheel_br_constraint.disableAngularMotor(2);
+                break;
+
+            case 83:
+                // Down
+                robot.wheel_bl_constraint.disableAngularMotor(2);
+                robot.wheel_br_constraint.disableAngularMotor(2);
+                break;
+        }
+    });
+
 
     // BALL
     createBall = () => {
