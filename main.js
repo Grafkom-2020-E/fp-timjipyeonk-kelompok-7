@@ -254,6 +254,17 @@ initScene = () => {
         robot.top_central.position.y = 8;
         robot.body.add(robot.top_central);
 
+        
+        // ROBOT TOP 2
+        robot.top_central = new Physijs.BoxMesh(
+            new THREE.BoxGeometry(7, 7, 7),
+            robot_material,
+            3000
+        );
+        robot.top_central.position.x = 0;
+        robot.top_central.position.y = 15;
+        robot.body.add(robot.top_central);
+
         // robot BODY FRONT
         robot.body_front = new Physijs.CylinderMesh(
             new THREE.CylinderGeometry(
