@@ -6,7 +6,11 @@ let initScene,
     scene,
     ground = {},
     light,
-    camera;
+    camera,
+    ball_material,
+    ball,
+    createBall,
+    checkBallPosition;
 
 
 initScene = () => {
@@ -17,6 +21,11 @@ initScene = () => {
 
     scene = new Physijs.Scene();
     scene.setGravity(new THREE.Vector3(0, -30, 0));
+    scene.addEventListener('update', function () {
+        scene.simulate(undefined, 2);
+        checkCarPosition();
+        checkBallPosition();
+    });
 
     camera = new THREE.PerspectiveCamera(
         35,
@@ -136,9 +145,35 @@ initScene = () => {
     ground.south_border_2.position.set(60, border_height / 2 + 0.5, 99);
     scene.add(ground.south_border_2);
 
+        // BALL
+        createBall = () => {
+            ball_material = Physijs.createMaterial(
+                new THREE.MeshLambertMaterial({ color: 0xffffff }),
+                0.1,
+                1
+            );
+            ball = new Physijs.SphereMesh(
+                new THREE.SphereGeometry(5, 20, 20),
+                ball_material,
+                20, // mass
+                { restitution: 0.9, friction: 0.9 }
+            );
+            ball.position.x = -10;
+            ball.position.y = 25;
+            scene.add(ball);
+        };
+        createBall();
+
+        checkBallPosition = () => {
+            if (ball.position.y < 0) {
+                createBall();
+            }
+        };
+
     requestAnimationFrame(render);
     scene.simulate();
 };
+
 
 render = function () {
     requestAnimationFrame(render);
