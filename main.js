@@ -244,6 +244,85 @@ initScene = () => {
 
         scene.add(robot.body);
 
+        // ROBOT TOP
+        robot.top_central = new Physijs.BoxMesh(
+            new THREE.BoxGeometry(10, 10, 10),
+            robot_material,
+            3000
+        );
+        robot.top_central.position.x = 0;
+        robot.top_central.position.y = 8;
+        robot.body.add(robot.top_central);
+
+        // robot BODY FRONT
+        robot.body_front = new Physijs.CylinderMesh(
+            new THREE.CylinderGeometry(
+                2,
+                2,
+                7,
+                10,
+                10,
+                false,
+                Math.PI,
+                Math.PI
+            ),
+            robot_material,
+            200 // mass
+            // { restitution: 0.9, friction: 0.1 }
+        );
+        robot.body_front.position.x = -5.5;
+        
+        robot.body_front.position.y = 10;
+        robot.body_front.rotation.x = Math.PI / 2;
+        robot.body.add(robot.body_front);
+        scene.add(robot.body);
+
+        // robot BODY hand
+        robot.body_front = new Physijs.CylinderMesh(
+        new THREE.CylinderGeometry(
+            2,
+            2,
+            7,
+            10,
+            10,
+            false,
+            Math.PI*2,
+            Math.PI*2
+        ),
+        robot_material,
+        200 // mass
+        // { restitution: 0.9, friction: 0.1 }
+        );
+        robot.body_front.position.z = -7.5;    
+        robot.body_front.position.y = 10;
+        robot.body_front.rotation.x = Math.PI / 2;
+        robot.body.add(robot.body_front);
+        scene.add(robot.body);
+        
+        // robot BODY hand
+        robot.body_front = new Physijs.CylinderMesh(
+        new THREE.CylinderGeometry(
+            2,
+            2,
+            7,
+            10,
+            10,
+            false,
+            Math.PI*2,
+            Math.PI*2
+        ),
+        robot_material,
+        200 // mass
+        // { restitution: 0.9, friction: 0.1 }
+        );
+        robot.body_front.position.z = 7.5;    
+        robot.body_front.position.y = 10;
+        robot.body_front.rotation.x = Math.PI / 2;
+        robot.body.add(robot.body_front);
+        scene.add(robot.body);
+
+
+
         // WHEEL FRONT LEFT
         robot.wheel_fl = new Physijs.CylinderMesh(
             wheel_geometry,
