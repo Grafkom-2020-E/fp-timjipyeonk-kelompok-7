@@ -156,23 +156,63 @@ initScene = () => {
     ground.south_border_2.position.set(60, border_height / 2 + 0.5, 99);
     scene.add(ground.south_border_2);
 
-    ground.south_border_1 = new Physijs.BoxMesh(
-        new THREE.BoxGeometry(76, border_height, 2),
+    
+    // OBSTACLE
+    // 1
+    let countx = Math.floor((Math.random() * 30) + 10);
+    let countz = Math.floor((Math.random() * 9) + 5);
+    let countpositionx = Math.floor((Math.random() * -70) + (-10));
+    let countpositionz = Math.floor((Math.random() * -70) + (-10));
+    ground.obstacle1 = new Physijs.BoxMesh(
+        new THREE.BoxGeometry(countx, border_height, countz),
         ground_material,
         0, 
         { restitution: 0.9, friction: 0.1 }
     );
-    ground.south_border_1.position.set(-60, border_height / 2 + 0.5, 99);
-    scene.add(ground.south_border_1);
+    ground.obstacle1.position.set(countpositionx, border_height / 2 + 0.5, countpositionz);
+    scene.add(ground.obstacle1);
 
-    ground.south_border_2 = new Physijs.BoxMesh(
-        new THREE.BoxGeometry(76, border_height, 2),
+    //2
+    countx = Math.floor((Math.random() * 30) + 10);
+    countz = Math.floor((Math.random() * 9) + 5);
+    countpositionx = Math.floor((Math.random() * -70) + (-10));
+    countpositionz = Math.floor((Math.random() * 70) + 10);
+    ground.obstacle2 = new Physijs.BoxMesh(
+        new THREE.BoxGeometry(countx, border_height, countz),
         ground_material,
         0, 
         { restitution: 0.9, friction: 0.1 }
     );
-    ground.south_border_2.position.set(60, border_height / 2 + 0.5, 99);
-    scene.add(ground.south_border_2);
+    ground.obstacle2.position.set(countpositionx, border_height / 2 + 0.5, countpositionz);
+    scene.add(ground.obstacle2);
+
+    //3
+    countx = Math.floor((Math.random() * 30) + 10);
+    countz = Math.floor((Math.random() * 9) + 5);
+    countpositionx = Math.floor((Math.random() * 70) + 10);
+    countpositionz = Math.floor((Math.random() * 70) + 10);
+    ground.obstacle3 = new Physijs.BoxMesh(
+        new THREE.BoxGeometry(countx, border_height, countz),
+        ground_material,
+        0, 
+        { restitution: 0.9, friction: 0.1 }
+    );
+    ground.obstacle3.position.set(countpositionx, border_height / 2 + 0.5, countpositionz);
+    scene.add(ground.obstacle3);
+
+    //4
+    countx = Math.floor((Math.random() * 40) + 10);
+    countz = Math.floor((Math.random() * 9) + 5);
+    countpositionx = Math.floor((Math.random() * 70) + 10);
+    countpositionz = Math.floor((Math.random() * -70) + (-10));
+    ground.obstacle4 = new Physijs.BoxMesh(
+        new THREE.BoxGeometry(countx, border_height, countz),
+        ground_material,
+        0, 
+        { restitution: 0.9, friction: 0.1 }
+    );
+    ground.obstacle4.position.set(countpositionx, border_height / 2 + 0.5, countpositionz);
+    scene.add(ground.obstacle4);
     
      // ROBOT
      createRobot = () => {
